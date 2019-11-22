@@ -1,0 +1,13 @@
+Customer | # of orders
+
+select customerName, count(*) as 'number of orders'
+from customers
+inner join orders
+on orders.CustomerID = customers.CustomerID
+group by customers.CustomerID
+order by count(*) desc;
+
+--
+
+
+
