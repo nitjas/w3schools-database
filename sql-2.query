@@ -1,0 +1,45 @@
+select customerName, count(*) as 'number of orders'
+from customers
+inner join orders
+on orders.CustomerID = customers.CustomerID
+group by customers.CustomerID
+order by count(*) desc;
+limit 5;
+
+
+select customers.CustomerName, products.ProductName
+from customers, orders, order_details, products
+where customers.CustomerID = orders.CustomerID
+and orders.OrderID = order_details.OrderID
+and order_details.ProductID = products.ProductID;
+
+
+select customers.CustomerName, count(products.ProductName) as 'Product Count'
+from customers, orders, order_details, products
+where customers.CustomerID = orders.CustomerID
+and orders.OrderID = order_details.OrderID
+and order_details.ProductID = products.ProductID
+group by customers.CustomerName;
+
+
+select customers.CustomerName, count(products.ProductName) as 'Product Count'
+from customers, orders, orderdetails, products
+where customers.CustomerID = orders.CustomerID
+and orders.OrderID = orderdetails.OrderID
+and orderdetails.ProductID = products.ProductID
+group by customers.CustomerName
+order by count(products.ProductName) desc
+;
+
+
+show databases;
+
+select @@hostname;
+-- doublefirst
+
+create database DogApp;
+create database soap_store;
+drop database DogApp;
+drop database soap_store;
+
+
