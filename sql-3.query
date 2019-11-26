@@ -1,0 +1,37 @@
+select * from customers;
+select * from orders;
+select * from order_details;
+select * from products;
+
+select customers.CustomerName, products.ProductName, products.Price, order_details.Quantity
+from customers inner join orders inner join  order_details inner join  products
+on customers.CustomerID = orders.CustomerID and orders.OrderID = order_details.OrderID
+and order_details.ProductID = products.ProductID;
+
+select customers.CustomerName, sum(products.Price * order_details.Quantity) as '$ Spend'
+from customers inner join orders inner join  order_details inner join  products
+on customers.CustomerID = orders.CustomerID and orders.OrderID = order_details.OrderID
+and order_details.ProductID = products.ProductID
+group by 1 order by 2 desc limit 1;
+
+select customers.CustomerName, customers.ContactName, sum(products.Price * order_details.Quantity) as '$ Spend'
+from customers inner join orders inner join  order_details inner join  products
+on customers.CustomerID = orders.CustomerID and orders.OrderID = order_details.OrderID
+and order_details.ProductID = products.ProductID
+group by 1 order by 3 desc limit 1;
+
+select * from products order by price desc;
+
+-- version that runs on w3schools
+select customers.CustomerName, customers.ContactName, sum(products.Price * orderdetails.Quantity) as '$ Spend'
+from customers join orders join orderdetails join products
+on customers.CustomerID = orders.CustomerID and orders.OrderID = orderdetails.OrderID
+and orderdetails.ProductID = products.ProductID
+group by 1 order by 3 desc limit 1;
+
+-- most valuable spender
+select customers.CustomerName, customers.ContactName, sum(products.Price * orderdetails.Quantity) as 'Total $ Spend', avg(products.Price * orderdetails.Quantity) as 'Avg $ Spend', count(*) as '# Orders'
+from customers join orders join orderdetails join products
+on customers.CustomerID = orders.CustomerID and orders.OrderID = orderdetails.OrderID
+and orderdetails.ProductID = products.ProductID
+group by 1 order by 4 desc;
